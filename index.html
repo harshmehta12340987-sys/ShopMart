@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopSmart | Smart Shopping</title>
+<meta name="description" content="Discover and compare products with ShopSmart.">
+
+<style>
+:root {
+  --navy:#14213d;
+  --orange:#ffad32;
+  --bg:#f5f7fb;
+  --muted:#687386;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+}
+header{
+  background:var(--navy);
+  color:white;
+  padding:16px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.brand{
+  font-size:25px;
+  font-weight:bold;
+  color:white;
+  text-decoration:none;
+}
+.brand span{color:var(--orange)}
+  .brand .logo{color:var(--navy)}
+.logo{
+  background:var(--orange);
+  color:var(--navy);
+  padding:7px 11px;
+  border-radius:9px;
+  margin-right:6px;
+}
+nav{display:flex;gap:16px}
+nav a{color:white;text-decoration:none;font-size:14px}
+.hero{
+  text-align:center;
+  padding:65px 6%;
+  color:white;
+  background:linear-gradient(120deg,#14213d,#315b86);
+}
+.hero h1{font-size:clamp(30px,5vw,46px);margin-bottom:12px}
+.hero h1 span{color:var(--orange)}
+.hero p{margin-bottom:25px;color:#e1e9f2}
+.searchbox{
+  max-width:600px;
+  margin:auto;
+  display:flex;
+  background:white;
+  padding:6px;
+  border-radius:9px;
+}
+.searchbox input{
+  flex:1;
+  min-width:0;
+  border:none;
+  outline:none;
+  padding:12px;
+  font-size:15px;
+}
+.searchbox button{
+  border:0;
+  background:var(--orange);
+  padding:12px 18px;
+  border-radius:6px;
+  font-weight:bold;
+}
+.direct{
+  display:inline-block;
+  margin-top:18px;
+  color:white;
+  text-decoration:underline;
+  font-size:13px;
+}
+.container{padding:40px 6%}
+.heading{margin-bottom:22px}
+.heading h2{font-size:26px}
+.heading p{color:var(--muted);font-size:14px;margin-top:5px}
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:25px;
+}
+.filters button{
+  border:1px solid #ddd;
+  background:white;
+  padding:10px 17px;
+  border-radius:25px;
+  cursor:pointer;
+}
+.filters button.active{
+  background:var(--navy);
+  color:white;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:20px;
+}
+.card{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px #14213d10;
+  transition:.2s;
+}
+.card:hover{transform:translateY(-4px)}
+.card img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  background:#eee;
+}
+.content{padding:16px}
+.category{
+  font-size:11px;
+  color:#a66b08;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+.card h3{margin:8px 0}
+.card p{font-size:13px;color:var(--muted);min-height:38px}
+.price{margin:13px 0;font-weight:bold}
+.buttons{display:flex;gap:8px}
+.buttons button{
+  flex:1;
+  border:0;
+  padding:10px 5px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:12px;
+}
+.buy{background:var(--orange);color:var(--navy)}
+.compare{background:#e9edf5;color:var(--navy)}
+#comparison{
+  display:none;
+  background:white;
+  padding:22px;
+  border-radius:12px;
+  margin-top:30px;
+}
+#comparison h3{margin-bottom:8px}
+.note{font-size:13px;color:var(--muted);margin-bottom:15px}
+.store{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  border-top:1px solid #eee;
+  padding:14px 0;
+}
+.store a{
+  background:var(--navy);
+  color:white;
+  padding:9px 13px;
+  border-radius:6px;
+  font-size:12px;
+  text-decoration:none;
+}
+.best{color:green;font-size:12px;font-weight:bold}
+.disclosure{
+  margin-top:30px;
+  padding:18px;
+  background:#fff4df;
+  border-left:4px solid var(--orange);
+  font-size:13px;
+  line-height:1.6;
+}
+footer{
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:35px 6%;
+  font-size:13px;
+  line-height:2;
+}
+footer a{color:var(--orange)}
+@media(max-width:600px){
+  header{justify-content:center}
+  nav{justify-content:center}
+  .container{padding:32px 5%}
+  .hero{padding:50px 5%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="brand" href="#">
+    <span class="logo">S</span>Shop<span>Smart</span>
+  </a>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#products">Products</a>
+    <a href="#comparison">Compare</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Discover. <span>Compare.</span> Save.</h1>
+  <p>Find interesting products and explore shopping options.</p>
+
+  <div class="searchbox">
+    <input id="search" placeholder="Search products...">
+    <button onclick="render()">Search</button>
+  </div>
+
+  <a class="direct" href="#" onclick="searchAmazon();return false">
+    Search directly on Amazon →
+  </a>
+</section>
+
+<main class="container" id="products">
+
+  <div class="heading">
+    <h2>Explore Products</h2>
+    <p>Find products across popular categories.</p>
+  </div>
+
+  <div class="filters">
+    <button class="active" onclick="category('All',this)">All</button>
+    <button onclick="category('Electronics',this)">Electronics</button>
+    <button onclick="category('Fashion',this)">Fashion</button>
+    <button onclick="category('Home',this)">Home</button>
+  </div>
+
+  <div class="grid" id="productGrid"></div>
+
+  <div id="comparison">
+    <h3 id="compareTitle">Price comparison</h3>
+    <p class="note">
+      Check the prices and product details on each retailer's website.
+      Prices entered below must be verified and updated manually.
+    </p>
+    <div id="storeList"></div>
+  </div>
+
+  <div class="disclosure">
+    <b>Affiliate Disclosure:</b> ShopSmart may earn a commission
+    from qualifying purchases made through affiliate links.
+    As an Amazon Associate, the website owner earns from
+    qualifying purchases. Prices and availability can change.
+  </div>
+
+</main>
+
+<footer id="about">
+  <h2>ShopSmart</h2>
+  <p>Discover better shopping options.</p>
+  <p>Compare products. Explore deals. Shop smart.</p>
+  <p>© 2026 ShopSmart</p>
+  <p><a href="mailto:YOUR_EMAIL@example.com">Contact Us</a></p>
+</footer>
+
+<script>
+
+// ==================================
+// SHOPSMART SETTINGS
+// ==================================
+
+// Replace with your actual Amazon tracking ID.
+const AMAZON_TAG = "YOURTAG-21";
+
+// Product catalogue.
+// Enter verified prices in rupees.
+// Keep null when a price has not been verified.
+
+const products = [
+
+{
+ id:1,
+ name:"Wireless Headphones",
+ category:"Electronics",
+ description:"Wireless audio for everyday listening.",
+ image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",
+ query:"wireless headphones",
+ prices:{Amazon:null,Flipkart:null,Croma:null}
+},
+
+{
+ id:2,
+ name:"Smart Watch",
+ category:"Electronics",
+ description:"A smartwatch for everyday activities.",
+ image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700",
+ query:"smart watch",
+ prices:{Amazon:null,Flipkart:null,Croma:null}
+},
+
+{
+ id:3,
+ name:"Casual Sneakers",
+ category:"Fashion",
+ description:"Comfortable casual footwear.",
+ image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",
+ query:"casual sneakers",
+ prices:{Amazon:null,Flipkart:null,Myntra:null}
+},
+
+{
+ id:4,
+ name:"Travel Backpack",
+ category:"Fashion",
+ description:"A practical bag for daily travel.",
+ image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700",
+ query:"travel backpack",
+ prices:{Amazon:null,Flipkart:null,Myntra:null}
+},
+
+{
+ id:5,
+ name:"Modern Table Lamp",
+ category:"Home",
+ description:"A stylish lamp for your study table.",
+ image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=700",
+ query:"table lamp",
+ prices:{Amazon:null,Flipkart:null,IKEA:null}
+},
+
+{
+ id:6,
+ name:"Bluetooth Speaker",
+ category:"Electronics",
+ description:"Portable speaker for everyday music.",
+ image:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=700",
+ query:"bluetooth speaker",
+ prices:{Amazon:null,Flipkart:null,Croma:null}
+}
+
+];
+
+let selectedCategory="All";
+
+// ==================================
+// AMAZON SEARCH
+// ==================================
+
+function amazonURL(query){
+
+ return "https://www.amazon.in/s?k="
+ +encodeURIComponent(query)
+ +"&tag="+encodeURIComponent(AMAZON_TAG);
+
+}
+
+function openAmazon(query){
+
+ window.open(amazonURL(query),"_blank");
+
+}
+
+function searchAmazon(){
+
+ const q=document.getElementById("search").value.trim();
+
+ if(!q){
+  alert("Enter a product name first.");
+  return;
+ }
+
+ openAmazon(q);
+
+}
+
+// ==================================
+// PRODUCT SEARCH AND DISPLAY
+// ==================================
+
+function render(){
+
+ const q=document.getElementById("search")
+ .value.trim().toLowerCase();
+
+ const grid=document.getElementById("productGrid");
+
+ const filtered=products.filter(p=>{
+
+  const matches=
+   (p.name+" "+p.category+" "+p.description)
+   .toLowerCase().includes(q);
+
+  const matchesCategory=
+   selectedCategory==="All"||
+   p.category===selectedCategory;
+
+  return matches&&matchesCategory;
+
+ });
+
+ grid.innerHTML="";
+
+ if(filtered.length===0){
+
+  grid.innerHTML=
+   '<p>No products found. Try another search.</p>';
+
+  return;
+ }
+
+ filtered.forEach(p=>{
+
+  const card=document.createElement("div");
+  card.className="card";
+
+  const img=document.createElement("img");
+  img.src=p.image;
+  img.alt=p.name;
+  img.loading="lazy";
+
+  img.onerror=function(){
+   this.src="https://placehold.co/600x400?text=ShopSmart";
+  };
+
+  const content=document.createElement("div");
+  content.className="content";
+
+  const label=document.createElement("div");
+  label.className="category";
+  label.textContent=p.category;
+
+  const title=document.createElement("h3");
+  title.textContent=p.name;
+
+  const description=document.createElement("p");
+  description.textContent=p.description;
+
+  const price=document.createElement("div");
+  price.className="price";
+  price.textContent="Check current price";
+
+  const buttons=document.createElement("div");
+  buttons.className="buttons";
+
+  const compare=document.createElement("button");
+  compare.className="compare";
+  compare.textContent="Compare";
+  compare.onclick=()=>showComparison(p.id);
+
+  const buy=document.createElement("button");
+  buy.className="buy";
+  buy.textContent="Buy on Amazon";
+  buy.onclick=()=>openAmazon(p.query);
+
+  buttons.append(compare,buy);
+
+  content.append(label,title,description,price,buttons);
+  card.append(img,content);
+
+  grid.appendChild(card);
+
+ });
+
+}
+
+// ==================================
+// CATEGORY FILTER
+// ==================================
+
+function category(name,button){
+
+ selectedCategory=name;
+
+ document.querySelectorAll(".filters button")
+ .forEach(b=>b.classList.remove("active"));
+
+ button.classList.add("active");
+
+ render();
+
+}
+
+// ==================================
+// LIVE SEARCH WHILE TYPING
+// ==================================
+
+document.getElementById("search")
+.addEventListener("input",render);
+
+// ==================================
+// PRICE COMPARISON
+// ==================================
+
+function showComparison(id){
+
+ const p=products.find(x=>x.id===id);
+
+ const panel=document.getElementById("comparison");
+ const title=document.getElementById("compareTitle");
+ const list=document.getElementById("storeList");
+
+ panel.style.display="block";
+ title.textContent="Compare: "+p.name;
+
+ list.innerHTML="";
+
+ const stores=Object.entries(p.prices);
+
+ const valid=stores.filter(([name,price])=>
+  Number.isFinite(price)&&price>0
+ );
+
+ const lowest=valid.length
+  ?Math.min(...valid.map(x=>x[1]))
+  :null;
+
+ stores.forEach(([store,price])=>{
+
+  const row=document.createElement("div");
+  row.className="store";
+
+  const details=document.createElement("div");
+
+  const name=document.createElement("b");
+  name.textContent=store;
+
+  const amount=document.createElement("div");
+
+  if(Number.isFinite(price)&&price>0){
+
+   amount.textContent="₹"+price.toLocaleString("en-IN");
+
+   if(price===lowest){
+    const badge=document.createElement("div");
+    badge.className="best";
+    badge.textContent="Lowest entered price";
+    details.append(name,amount,badge);
+   }else{
+    details.append(name,amount);
+   }
+
+  }else{
+
+   amount.textContent="Price not verified";
+   details.append(name,amount);
+
+  }
+
+  const link=document.createElement("a");
+
+  const query=p.query;
+
+  if(store==="Amazon"){
+   link.href=amazonURL(query);
+  }else if(store==="Flipkart"){
+   link.href="https://www.flipkart.com/search?q="
+    +encodeURIComponent(query);
+  }else if(store==="Myntra"){
+   link.href="https://www.myntra.com/"+encodeURIComponent(query);
+  }else if(store==="Croma"){
+   link.href="https://www.croma.com/searchB?q="
+    +encodeURIComponent(query);
+  }else{
+   link.href="https://www.ikea.com/in/en/search/?q="
+    +encodeURIComponent(query);
+  }
+
+  link.target="_blank";
+  link.rel="sponsored nofollow noopener";
+  link.textContent="View product →";
+
+  row.append(details,link);
+  list.appendChild(row);
+
+ });
+
+ panel.scrollIntoView({behavior:"smooth"});
+
+}
+
+// START WEBSITE
+
+render();
+
+</script>
+
+</body>
+</html>
